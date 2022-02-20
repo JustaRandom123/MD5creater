@@ -12,7 +12,7 @@ namespace MD5creater
     {
         static void Main(string[] args)
         {
-           
+            StringBuilder sb = new StringBuilder();
           
             string[] files = Directory.GetFiles(AppDomain.CurrentDomain.BaseDirectory, "*", SearchOption.AllDirectories);
 
@@ -20,8 +20,13 @@ namespace MD5creater
 
             foreach (var fileName in files)
             {
-                Console.WriteLine(fileName + "   Hash: " + CalculateMD5(fileName));
+                string hash = CalculateMD5(fileName);
+                Console.WriteLine(fileName + "   Hash: " + hash);
+                sb.Append(hash + "\n");
             }
+
+
+            File.WriteAllText(AppDomain.CurrentDomain.BaseDirectory + "hashlist.txt", sb.ToString());
 
             Console.ReadLine();
         }
